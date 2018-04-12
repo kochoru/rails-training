@@ -1,7 +1,3 @@
----
-title: top
----
-
 = このアプリについて
 
 == 概要
@@ -163,5 +159,5 @@ http://ondras.zarovi.cz/sql/demo/?keyword=default
 * `rails webpacker:install:vue`
 
 . 明日やること
-* 作成したER図をもとに、`rails g model hogehoge`でモデルを作成していく。
+* 作成したER図をもとに、`rails g model hogehoge` でモデルを作成していく。
 
