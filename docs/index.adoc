@@ -1,0 +1,167 @@
+---
+title: top
+---
+
+= このアプリについて
+
+== 概要
+
+Todoアプリを `Ruby on Rails`、`Vue.js` で作ってます。
+
+== テーブル構成
+
+[source,sql]
+----
+CREATE TABLE [T_USER] (
+  [ID] INTEGER NOT NULL IDENTITY (1, 1) ,
+  [NAME] VARCHAR NOT NULL ,
+  [DEPT_ID] INTEGER ,
+  [PASSWORD] VARCHAR NOT NULL ,
+  [MAIL_ADDRESS] VARCHAR NOT NULL , 
+ PRIMARY KEY ([ID])
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [T_DEPARTMENT] (
+  [ID] INTEGER NOT NULL IDENTITY (1, 1) ,
+  [DEPT_NAME] VARCHAR NOT NULL , 
+ PRIMARY KEY ([ID])
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [T_TODO] (
+  [ID] INTEGER NOT NULL IDENTITY (1, 1) ,
+  [TITLE] VARCHAR NOT NULL ,
+  [TEXT] VARCHAR ,
+  [USER_ID] INTEGER NOT NULL ,
+  [CREATED_DATE] DATE NOT NULL ,
+  [DONE_DATE] DATE NOT NULL , 
+ PRIMARY KEY ([ID])
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [T_USER] ADD FOREIGN KEY (DEPT_ID) REFERENCES [T_DEPARTMENT] ([ID]);
+				
+ALTER TABLE [T_TODO] ADD FOREIGN KEY (USER_ID) REFERENCES [T_USER] ([ID]);
+----
+
+ちなみに上記は以下のWebサービスで作りました。使いやすかったです。 +
+下記の`XML`を食わせるとER図が出てきます。 +
+http://ondras.zarovi.cz/sql/demo/?keyword=default
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: http://ondras.zarovi.cz/sql/demo/?keyword=default -->
+<sql>
+<datatypes db="mssql">
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" quote="" sql="INTEGER" length="0"/>
+	 	<type label="TINYINT" quote="" sql="TINYINT" length="0"/>
+	 	<type label="SMALLINT" quote="" sql="SMALLINT" length="0"/>
+	 	<type label="MEDIUMINT" quote="" sql="MEDIUMINT" length="0"/>
+	 	<type label="INT" quote="" sql="INT" length="0"/>
+		<type label="BIGINT" quote="" sql="BIGINT" length="0"/>
+		<type label="Decimal" quote="" sql="DECIMAL" length="1" re="DEC"/>
+		<type label="Single precision" quote="" sql="FLOAT" length="0"/>
+		<type label="Double precision" quote="" sql="DOUBLE" length="0" re="DOUBLE"/>
+	</group>
+
+	<group label="Character" color="rgb(255,200,200)">
+		<type label="Char" quote="'" sql="CHAR" length="1"/>
+		<type label="Varchar" quote="'" sql="VARCHAR" length="1"/>
+		<type label="Text" quote="'" sql="MEDIUMTEXT" length="0" re="TEXT"/>
+		<type label="Binary" quote="'" sql="BINARY" length="1"/>
+		<type label="Varbinary" quote="'" sql="VARBINARY" length="1"/>
+		<type label="BLOB" quote="'" sql="BLOB" length="0" re="BLOB"/>
+	</group>
+
+	<group label="Date &amp; Time" color="rgb(200,255,200)">
+		<type label="Date" quote="'" sql="DATE" length="0"/>
+		<type label="Time" quote="'" sql="TIME" length="0"/>
+		<type label="Datetime" quote="'" sql="DATETIME" length="0"/>
+		<type label="Year" quote="" sql="YEAR" length="0"/>
+		<type label="Timestamp" quote="'" sql="TIMESTAMP" length="0"/>
+	</group>
+	
+	<group label="Miscellaneous" color="rgb(200,200,255)">
+		<type label="ENUM" quote="" sql="ENUM" length="1"/>
+		<type label="SET" quote="" sql="SET" length="1"/>
+		<type label="Bit" quote="" sql="bit" length="0"/>
+	</group>
+</datatypes><table x="344" y="103" name="T_USER">
+<row name="ID" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="NAME" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="DEPT_ID" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="T_DEPARTMENT" row="ID" />
+</row>
+<row name="PASSWORD" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="MAIL_ADDRESS" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>ID</part>
+</key>
+</table>
+<table x="540" y="205" name="T_DEPARTMENT">
+<row name="ID" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="DEPT_NAME" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>ID</part>
+</key>
+</table>
+<table x="108" y="174" name="T_TODO">
+<row name="ID" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="TITLE" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<row name="TEXT" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="USER_ID" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="T_USER" row="ID" />
+</row>
+<row name="CREATED_DATE" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+<default>'NULL'</default></row>
+<row name="DONE_DATE" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>ID</part>
+</key>
+</table>
+</sql>
+----
+
+== 備忘
+
+. 実施したこと
+* `rails new rails-training --webpack=vue -TD --database=postgresql`
+* `bundle install`
+* `rake db:migrate`
+* `rake db:setup`
+* `rails db`
+* `/d`
+* `/l`
+* `/q`
+* `rails webpacker:install`
+* `rails webpacker:install:vue`
+
+. 明日やること
+* 作成したER図をもとに、`rails g model hogehoge`でモデルを作成していく。
+
