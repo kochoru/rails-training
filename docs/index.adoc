@@ -152,11 +152,18 @@ http://ondras.zarovi.cz/sql/demo/?keyword=default
 * `rake db:migrate`
 * `rake db:setup`
 * `rails db`
-* `/d`
-* `/l`
-* `/q`
+* `/d` ←テーブル一覧
+* `/l` ←データベース一覧
+* `/q` ←exit的な
 * `rails webpacker:install`
 * `rails webpacker:install:vue`
+* `webpacker:install` で `webpacker` 自体をインストールしてから `webpacker:install:vue` しないと駄目
+* `rails g model Department name:string`
+* `rails g model User name:string:unique department:references password:string email_address:string`
+* `rails g model Task title:string text:string is_done:boolean user:references`
+* db/migrate以下に生成されたファイルに、not null制約とかをつけて修正
+* `rails g model` で、データベースのマイグレーション用の中間コードが生成される。
+* `rails db:migrate`
 
 . 明日やること
 * 作成したER図をもとに、`rails g model hogehoge` でモデルを作成していく。
