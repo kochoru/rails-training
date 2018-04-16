@@ -7,7 +7,25 @@
 
 import Vue from 'vue'
 import App from '../app.vue'
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/ja'
+import router from '../router'
+import store from '../store/store'
 
+Vue.use(ElementUI, { locale })
+
+new Vue({
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: {
+    App
+  }
+})
+
+/*
+最初に生成されたコード
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
@@ -17,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log(app)
 })
-
+*/
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would

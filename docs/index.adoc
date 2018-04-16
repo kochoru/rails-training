@@ -164,7 +164,31 @@ http://ondras.zarovi.cz/sql/demo/?keyword=default
 * db/migrate以下に生成されたファイルに、not null制約とかをつけて修正
 * `rails g model` で、データベースのマイグレーション用の中間コードが生成される。
 * `rails db:migrate`
+* `active_model_serializers` の `gem` を追加、`bundle install`
+* `rails g serializer task`
+* `rails g serializer user`
+* `rails g serializer department`
+* `config/routes.rb` を修正。
+* `rails routes` で確認
+* 
 
 . 明日やること
 * 作成したER図をもとに、`rails g model hogehoge` でモデルを作成していく。
 
+=== Tips
+
+==== プルリクの流れ
+
+. 最初にすること
+* `git branch ブランチ名`:ブランチの作成
+* `git checkout -b ブランチ名`:ブランチのチェックアウト
+
+. プルリク時
+* `git add .`
+* `git commit -m "コミットメッセージ"`
+* `git push -u origin ブランチ名`
+* github上でプルリクのワークフロー進める
+* `git checkout master`:ローカルリポジトリ上で、masterブランチへ切り替える
+* `git pull`:リモートリポジトリ上の状態は、ローカルリポジトリ上のmasterへは未反映なので、pullする。
+* `git branch -D ブランチ名`:さっき反映を終えたブランチは削除する。
+* 次の開発を進めたいのであれば、最初にすること　に戻る
