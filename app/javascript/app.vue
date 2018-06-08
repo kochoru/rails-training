@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+    <v-app id="inspire" dark>
+      <baseLayout></baseLayout>
+      <v-content>
+        <router-view></router-view>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
+import BaseLayout from './layouts/BaseLayout'
+
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
+  name: 'app',
+  components: {
+    BaseLayout
   }
 }
 </script>

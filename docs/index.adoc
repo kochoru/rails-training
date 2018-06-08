@@ -168,9 +168,14 @@ http://ondras.zarovi.cz/sql/demo/?keyword=default
 * `rails g serializer task`
 * `rails g serializer user`
 * `rails g serializer department`
+* `rails c`
+* `Department.create(name: 'network')`
+* `Department.create(neme: 'system development')`
+* `User.create({name: 'kochoru', department: Department.new(name:'network'), password: 'kochoru', email_address: 'kochoru@hoge.jp'})`
+* ``
 * `config/routes.rb` を修正。
 * `rails routes` で確認
-* 
+* `rails g devise_token_auth:install User auth`
 
 . 明日やること
 * 作成したER図をもとに、`rails g model hogehoge` でモデルを作成していく。

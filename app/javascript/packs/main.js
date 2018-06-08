@@ -6,36 +6,47 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from '../app.vue'
+
+// for Vuetify
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import colors from 'vuetify/es5/util/colors'
+
+// for element
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ja'
+import 'element-ui/lib/theme-chalk/index.css'
+
+// application
+import App from '../app'
 import router from '../router'
 import store from '../store/store'
 
-Vue.use(ElementUI, { locale })
+import axios from 'axios'
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  template: '<App/>',
-  components: {
-    App
+Vue.use(Vuetify, {
+  theme: {
+    primary: colors.red.darken1, // #E53935
+    secondary: colors.red.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
   }
 })
+Vue.use(ElementUI, { locale })
 
-/*
-最初に生成されたコード
+axios.defaults.baseURL = 'http://localhost:5000/api'
+
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
-    el,
+    el: "#app",
+    router,
+    store,
+    template: '<App/>',
     render: h => h(App)
   })
 
   console.log(app)
 })
-*/
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would

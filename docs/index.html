@@ -608,19 +608,59 @@ ALTER TABLE [T_TODO] ADD FOREIGN KEY (USER_ID) REFERENCES [T_USER] ([ID]);</code
 <p><code>rails db</code></p>
 </li>
 <li>
-<p><code>/d</code></p>
+<p><code>/d</code> ←テーブル一覧</p>
 </li>
 <li>
-<p><code>/l</code></p>
+<p><code>/l</code> ←データベース一覧</p>
 </li>
 <li>
-<p><code>/q</code></p>
+<p><code>/q</code> ←exit的な</p>
 </li>
 <li>
 <p><code>rails webpacker:install</code></p>
 </li>
 <li>
 <p><code>rails webpacker:install:vue</code></p>
+</li>
+<li>
+<p><code>webpacker:install</code> で <code>webpacker</code> 自体をインストールしてから <code>webpacker:install:vue</code> しないと駄目</p>
+</li>
+<li>
+<p><code>rails g model Department name:string</code></p>
+</li>
+<li>
+<p><code>rails g model User name:string:unique department:references password:string email_address:string</code></p>
+</li>
+<li>
+<p><code>rails g model Task title:string text:string is_done:boolean user:references</code></p>
+</li>
+<li>
+<p>db/migrate以下に生成されたファイルに、not null制約とかをつけて修正</p>
+</li>
+<li>
+<p><code>rails g model</code> で、データベースのマイグレーション用の中間コードが生成される。</p>
+</li>
+<li>
+<p><code>rails db:migrate</code></p>
+</li>
+<li>
+<p><code>active_model_serializers</code> の <code>gem</code> を追加、<code>bundle install</code></p>
+</li>
+<li>
+<p><code>rails g serializer task</code></p>
+</li>
+<li>
+<p><code>rails g serializer user</code></p>
+</li>
+<li>
+<p><code>rails g serializer department</code></p>
+</li>
+<li>
+<p><code>config/routes.rb</code> を修正。</p>
+</li>
+<li>
+<p><code>rails routes</code> で確認
+*</p>
 </li>
 </ul>
 </div>
@@ -637,12 +677,66 @@ ALTER TABLE [T_TODO] ADD FOREIGN KEY (USER_ID) REFERENCES [T_USER] ([ID]);</code
 </li>
 </ol>
 </div>
+<div class="sect2">
+<h3 id="_tips">Tips</h3>
+<div class="sect3">
+<h4 id="_プルリクの流れ">プルリクの流れ</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>最初にすること</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>git branch ブランチ名</code>:ブランチの作成</p>
+</li>
+<li>
+<p><code>git checkout -b ブランチ名</code>:ブランチのチェックアウト</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>プルリク時</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>git add .</code></p>
+</li>
+<li>
+<p><code>git commit -m "コミットメッセージ"</code></p>
+</li>
+<li>
+<p><code>git push -u origin ブランチ名</code></p>
+</li>
+<li>
+<p>github上でプルリクのワークフロー進める</p>
+</li>
+<li>
+<p><code>git checkout master</code>:ローカルリポジトリ上で、masterブランチへ切り替える</p>
+</li>
+<li>
+<p><code>git pull</code>:リモートリポジトリ上の状態は、ローカルリポジトリ上のmasterへは未反映なので、pullする。</p>
+</li>
+<li>
+<p><code>git branch -D ブランチ名</code>:さっき反映を終えたブランチは削除する。</p>
+</li>
+<li>
+<p>次の開発を進めたいのであれば、最初にすること　に戻る</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 20:21:31 東京 (標準時)
+Last updated 2018-04-16 16:02:38 JST
 </div>
 </div>
 </body>
