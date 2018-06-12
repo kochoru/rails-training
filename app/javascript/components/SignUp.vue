@@ -51,6 +51,7 @@
 
 <script>
 import axios from 'axios'
+import qs from 'qs'
 
 export default {
   data() {
@@ -81,13 +82,12 @@ export default {
   methods: {
     signUp() {
       if (this.$refs.form.validate()) {
-        const signUpInfo = {
+        axios.post('/auth', qs.stringify({
           name: this.username,
           password: this.password,
-          department: this.department,
+          department_id: this.department,
           email: this.email
-        }
-        axios.get('/auth/sign_up', signUpInfo).then(response => {
+        })).then(response => {
           this.$store.commit('SET_CURRENT_USER', response.data)
         }).catch(response => {
           console.log(response)

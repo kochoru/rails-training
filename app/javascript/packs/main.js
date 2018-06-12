@@ -35,6 +35,9 @@ Vue.use(Vuetify, {
 Vue.use(ElementUI, { locale })
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
+axios.defaults.headers.common['X-CSRF-Token']
+    = document.getElementsByName('csrf-token')[0].getAttribute('content')
+axios.defaults.headers.common['Accept'] = 'application/json'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({

@@ -11,12 +11,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Todo',
+      name: 'todo',
       component: Todo
     },
     {
       path: '/login',
-      name: 'LoginForm',
+      name: 'login',
       component: LoginForm,
       beforeEnter (to, from, next) {
         if (store.getters['auth/loggedIn']) {
@@ -27,7 +27,7 @@ const router = new Router({
     },
     {
       path: '/signup',
-      name: 'SignUp',
+      name: 'signup',
       component: SignUp
     }
   ]

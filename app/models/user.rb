@@ -6,5 +6,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   belongs_to :department
 
-  validates :name, :password, :email_address, :department, presence: true
+  validates :name, :password, :email, :department_id, presence: true
 end

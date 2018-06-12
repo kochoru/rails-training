@@ -25,16 +25,19 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-toolbar>
     <v-toolbar
       app
       fixed
       clipped-left>
-      <v-toolbar-side-icon v-on:click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+        v-on:click.stop="drawer = !drawer">
+      </v-toolbar-side-icon>
       <v-toolbar-title>Todo</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn v-bind:to="{ name: 'signup'}">Sign Up</v-btn>
+        <v-btn v-bind:to="{ name: 'login'}">Login</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
