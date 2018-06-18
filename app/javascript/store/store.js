@@ -11,69 +11,83 @@ const state = {
 
 const getters = {
   // ユーザがログインしているかどうか
-  loggedIn(state) {
+  loggedIn (state) {
+    console.log('getters.loggedIn is calld.' + !!state.currentUser)
     // javascript では"",null,undefinedはfalseとなる。
     return !!state.currentUser
   }
 }
 
 const mutations = {
-  CACHE_TASKS(state, newTodo) {
+  CACHE_TASKS (state, newTodo) {
     state.cachedTasks.push(newTodo)
   },
-  SET_CURRENT_USER(state, newValue) {
+  SET_CURRENT_USER (state, newValue) {
     state.currentUser = newValue
     saveState('auth.currentUser', newValue)
-    setDefaultAuthHeaders(state)
   }
 }
 
 const actions = {
   // ログイン処理
-  logIn({ commit, dispatch, getters }, { username, password } = {}) {
+  logIn ({ commit, dispatch, getters }, { email, password } = {}) {
     if (getters.loggedIn) return dispatch('validateUsersAndRefleshCache')
 
-    return axios.post('login', { username, password })
+    return axios.post('/auth/sign_in', { email, password })
       .then(response => {
+        console.log('一応sign_inとんでます')
         const user = response.data
         commit('SET_CURRENT_USER', user)
         return user
+      }).catch(thrown => {
+        console.log(thrown)
+        throw thrown
       })
   },
   // タスクを取得する
-  fetchTasks({ commit, state, rootState }, { userId }) {
-    axios.get(`/tasks`).then(response => {
+  fetchTasks ({ commit, state, rootState }, { userId }) {
+    axios.get('/tasks').then(response => {
       const tasks = response.data
       commit('CACHE_TASKS', tasks)
     })
   },
   // タスクを追加する
-  addTask({ commit, state, rootState }, { task }) {
+  addTask ({ commit, state, rootState }, { task }) {
     commit('CACHE_TASKS', task)
-    axios.post(`/tasks`).catch(respose => {
+    axios.post('/tasks').catch(respose => {
       // 何もしない
     })
   },
 
-  validateUsersAndRefleshCache({ commit, state }) {
-    if (!state.currentUser) return Promise.resolve(null)
+  validateUsersAndRefleshCache ({ commit, state }) {
+    if (!state.currentUser) {
+      return Promise.resolve(null)
+    }
 
-    return
-      axios.get('/users')
+    return axios.get('/users')
       .then(response => {
         const user = response.data
         commit('SET_CURRENT_USER', user)
+        setDefaultAuthHeaders(response.headers)
         return user
+      }).catch(thrown => {
+
       })
   }
 }
 
-function getSavedState(key) {
+function getSavedState (key) {
   return JSON.parse(window.localStorage.getItem(key))
 }
 
-function saveState(key, value) {
+function saveState (key, value) {
   window.localStorage.setItem(key, JSON.stringify(value))
+}
+
+function setDefaultAuthHeaders (headers) {
+  axios.defaults.headers.common['access-token'] = headers['access-token']
+  axios.defaults.headers.common['client'] = headers['client']
+  axios.defaults.headers.common['uid'] = headers['uid']
 }
 
 export default new Vuex.Store({

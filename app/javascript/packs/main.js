@@ -11,7 +11,6 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import colors from 'vuetify/es5/util/colors'
 
 // for element
 import ElementUI from 'element-ui'
@@ -25,23 +24,17 @@ import store from '../store/store'
 
 import axios from 'axios'
 
-Vue.use(Vuetify, {
-  theme: {
-    primary: colors.red.darken1, // #E53935
-    secondary: colors.red.lighten4, // #FFCDD2
-    accent: colors.indigo.base // #3F51B5
-  }
-})
+Vue.use(Vuetify)
 Vue.use(ElementUI, { locale })
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
-axios.defaults.headers.common['X-CSRF-Token']
-    = document.getElementsByName('csrf-token')[0].getAttribute('content')
-axios.defaults.headers.common['Accept'] = 'application/json'
+axios.defaults.headers.common['X-CSRF-Token'] =
+    document.getElementsByName('csrf-token')[0].getAttribute('content')
+axios.defaults.headers.common['Accept'] = 'application/json; charset=utf-8'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    el: "#app",
+    el: '#app',
     router,
     store,
     template: '<App/>',
@@ -63,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //   {{message}}
 //   <app></app>
 // </div>
-
 
 // import Vue from 'vue/dist/vue.esm'
 // import App from '../app.vue'

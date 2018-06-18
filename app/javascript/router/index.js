@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Todo from '../components/Todo'
 import LoginForm from '../components/LoginForm'
 import SignUp from '../components/SignUp'
-import store from '../store/store';
+import store from '../store/store'
 
 Vue.use(Router)
 
@@ -22,7 +22,7 @@ const router = new Router({
         if (store.getters['auth/loggedIn']) {
           next({ name: 'Todo' })
         }
-        next ()
+        next()
       }
     },
     {
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
 
   redirectToLogin()
 
-  function redirectToLogin() {
+  function redirectToLogin () {
     next({
       path: 'login',
       query: { redirect: to.fullPath }

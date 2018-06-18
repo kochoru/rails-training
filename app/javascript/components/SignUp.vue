@@ -5,8 +5,8 @@
     <v-layout
       align-center
       justify-center>
-      <v-flex xs10 sm8 md 8>
-        <v-form ref="form">
+      <v-flex xs10 sm8 md8>
+        <v-form ref="form" lazy-validation>
           <v-text-field
             v-model="username"
             label="Name"
@@ -58,11 +58,13 @@ export default {
     return {
       username: '',
       nameRules: [
-          v => !!v || 'Username is required'
+          v => !!v || 'Username is required',
+          v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       password: '',
       passwordRules: [
-          v => !!v || 'Password is required'
+          v => !!v || 'Password is required',
+          v => /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(v) || 'Passwords must contain at least one half-width alphanumeric character'
       ],
       department: '',
       deptRules: [
@@ -70,7 +72,8 @@ export default {
       ],
       email: '',
       emailRules: [
-          v => !!v || 'E-Mail Address is required'
+          v => !!v || 'E-Mail Address is required',
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail Address is invalid'
       ],
 
       visible: false,
@@ -102,9 +105,9 @@ export default {
         this.$set(this.departments, i, response.data[i])
         console.log(response.data[i].name)
       }
-    }).catch(response => {
-      console.log(response)
-      throw response
+    }).catch(thrown => {
+      console.log(thrown)
+      throw thrown
     })
   }
 }
